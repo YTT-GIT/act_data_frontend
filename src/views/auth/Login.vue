@@ -100,7 +100,7 @@ export default {
             });
             setTimeout(() => {
               this.loading = false;
-              this.$router.push({ path: this.redirect || "/Home" });
+              this.$router.push({ path: this.redirect || "/Target/TransactionData" });
             }, 0.1 * 1000);
           })
           .catch(() => {

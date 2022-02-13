@@ -2966,6 +2966,11 @@ cyclist@^1.0.1:
   resolved "https://registry.npmmirror.com/cyclist/-/cyclist-1.0.1.tgz#596e9698fd0c80e12038c2b82d6eb1b35b6224d9"
   integrity sha512-NJGVKPS81XejHcLhaLJS7plab0fK3slPh11mESeeDq2W4ZI5kUKK/LRRdVDvjJseojbPB7ZwjnyOybg3Igea/A==
 
+darkreader@^4.9.44:
+  version "4.9.44"
+  resolved "https://registry.npmmirror.com/darkreader/-/darkreader-4.9.44.tgz#6aa89fd95c569dd9d77259cd34ebd2c7282e0e60"
+  integrity sha512-Mrt5s5eMaFC24Tfi2nNsXpYIfzWK/RUzJxgk0Ysqokvk9lBCn/pkUTyQGYeQbU/U3aKZEYXXqsxZjNfiLoA6QQ==
+
 dashdash@^1.12.0:
   version "1.14.1"
   resolved "https://registry.npmmirror.com/dashdash/-/dashdash-1.14.1.tgz#853cfa0f7cbe2fed5de20326b8dd581035f6e2f0"
