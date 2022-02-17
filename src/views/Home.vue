@@ -46,8 +46,8 @@ export default {
   /* margin: 10px; */
   padding: 20px;
   color: #333;
-  border-left:24px solid #e9eef2;
-  border-right:24px solid #e9eef2;
-  border-top:24px solid #e9eef2;
+  border-left:23px solid #e9eef2;
+  border-right:23px solid #e9eef2;
+  border-top:23px solid #e9eef2;
 }
 </style>

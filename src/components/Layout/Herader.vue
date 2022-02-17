@@ -7,18 +7,13 @@
       </a>
     </div>
     <div class="header-right">
-      <a><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAADNklEQVRYR+2WXWgcVRiG3+/sTOvSgqk3bUJ/ECmmCqWkhVyoeCNiCxVasN61+JNG8GpjM2c2pGWq7GbmrG6htJSs0JsW/EkFoQiC6IVCL6qhiL3wZ/xZoXdFzEU2sLs5bzmQQKjLbpKmCULOzVzMnO995v2+884I1njJGutjHeD/50C5XM42m83ngyD4ciXmZ0kOGGNeAXCe5Pta6w9WFcAYcxbAGSdqrd0bhuFPqwYQx/GAUqoyJ8hareZFUWRXBcAYsw/ATQD+nOB0EASbV0Lc1eg4A8aYLwAcAnAVgJuBjWmabqhUKo2VgGgLUCgU9vq+/yPJWiaT2WWtvQFgd7PZ3DMyMvLzQwdIkuS0iLxLsqK1HjTGfOpcsNaeDMPww4cOYIz5CsALIvLy8PDw9TiOjymlPiF5Q2v9zGoA3AbwNMlerfUvuVwu293d/QeAbSRf1Fo7wAdabWfAGPM3gB2e520fGhq645SMMW8DuADgT9/3+3K53L8PQtAJYBJA3+zsbF8+n7/lhMbHx/2pqanvAPQD+KZWqx2Ooqi2XIi2AKVS6TOSR0ke11pfmRcpFApbfd//3rlD8laj0TgyOjpaXQ5EW4AkSd4SkUsAJoIgOLZQoFgs9nqe52ZgO4AZkuMkz4Vh6Nr2nxXH8bNKqYE0Td9cmCGdWrANQJWkEpGngiD4bWHlcrn8WKPRKIvI8flQcydERFx2/ANgk1Jqp7X2gIi46+UwDN9YWGMxSVgCcMr1O03Tl1olYLFY7Pc87x2Sh0XkkVYOkKzPvcTvSwKI4/hRpZTr926SH3V1dZ0YHBxsGcPuX6Fer+8XkX6l1GZrbY+InHSCJM9qraP74To64DbM9dvF8BaS31prX8vn8y4PWq4oilQ2mz0hIhcBZElem5mZebXVF3RRAE4lSZInRcR9mJ4g2RSRj0XkWr1ev1mtVu/29PRkfd/f6XneQRF5HUCv22etPTc5OTk8MTEx24p20QBu89jY2JZMJvMegAEAG9odO5K/AtBa68/bPbckgPlCpVLpcQBHSD5Hcg+AXQCmROQvAD+IyNfT09PXoyhqdsqGZQF0KrqU++sA6w6suQP3ABeuUzCrJGMQAAAAAElFTkSuQmCC"></a>
-      
-      <b-navbar-item tag="div">
-        <b-switch v-model="darkMode" passive-type="is-warning" type="is-dark">
-          {{ darkMode ? "夜" : "日" }}
-        </b-switch>
-      </b-navbar-item>
-
-      <template>
-        <el-button type="text" @click="logout"><img src="out.png"></el-button>
-      </template>
-      
+      <!-- 日夜切换 -->
+      <el-button type="text" @click="ondarkModes" >
+            <i v-if="darkMode" class="el-icon-moon"></i>
+            <i v-else class="el-icon-sunny"></i>
+      </el-button>
+      <!-- 退出按钮 -->
+      <el-button type="text" @click="logout"><i class="el-icon-close"></i></el-button>
     </div>
   </div>
 </template>
@@ -26,6 +21,7 @@
 <script>
 // 导入白天黑夜
 import { disable as disableDarkMode, enable as enableDarkMode } from 'darkreader'
+import { getDarkMode, setDarkMode } from '@/utils/auth'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -42,16 +38,6 @@ export default {
     ...mapGetters(['token', 'user'])
   },
   watch: {
-    // 监听Theme模式
-    darkMode(val) {
-      if (val) {
-        enableDarkMode({})
-      } else {
-        disableDarkMode()
-      }
-      setDarkMode(this.darkMode)
-    }
-   
   },
   created() {
     // 获取cookie中的夜间还是白天模式
@@ -61,9 +47,23 @@ export default {
     } else {
       disableDarkMode()
     }
-   
+    
   },
   methods: {
+    ondarkModes(){
+      // 获取cookie中的夜间还是白天模式
+      this.darkMode = getDarkMode()
+      if (this.darkMode) {
+        disableDarkMode()
+        this.darkMode=false
+        setDarkMode(false)
+      } else {
+        enableDarkMode({})
+        this.darkMode=true
+        setDarkMode(true)
+      }
+      
+    },
     async logout() {
       this.$confirm('是否要退出登录？', '退出登录', {
           confirmButtonText: '确定',
@@ -90,12 +90,12 @@ export default {
 <style scoped>
 .header{
   width: 100%;
-  
 }
 .header>.header-left{
-  width: 208px;
+  width: 204px;
   line-height: 80px;
-   float:left;
+  float:left;
+  border-right: 1px solid rgba(0,0,0,.06);
 }
 .header>.header-left>a>img{
   width:36px;
@@ -111,17 +111,22 @@ export default {
   font-weight: bold;
 }
 .header>.header-right{
-  width: 168px;
+  width: 180px;
+  height: 100%;
   float:right;
-  line-height: 100px;
-}
-.header>.header-right>a{
-  margin-left: 10px;
-}
-.header>.header-right>span{
-  margin-left: 50px;
 }
 .el-button{
-  margin-left: 50px;
+  height: 100%;
+  margin-left: 50px; 
+  line-height: 80px; 
+  text-align: center;
+  font-size: 32px;
+  padding: 0 0;
+  color: black;
+}
+i{
+  line-height: 80px;  
+  text-align: center;
+  font-size: 32px;
 }
 </style>
