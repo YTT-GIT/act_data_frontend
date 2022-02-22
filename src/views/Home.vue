@@ -2,7 +2,7 @@
     <el-container>
       <el-header height="80px"><Header></Header></el-header>
       <el-container class="elcontainer">
-        <el-aside   width="208px" ><Aside></Aside></el-aside>
+        <el-aside   width="204px" ><Aside></Aside></el-aside>
         <el-container>
           <el-main>
             <router-view :key="this.$route.fullPath"></router-view>
@@ -38,8 +38,8 @@ export default {
 }
 .el-aside {
   color: #333;
-  height: 850px;
-  /* height: 100%; */
+  /* height: 850px; */
+  height: 100%;
   background-color: #e9eef2;
 }
 .el-main {

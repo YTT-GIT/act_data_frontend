@@ -56,7 +56,7 @@ export default {
       loading: false,
       ruleForm: {
         username: "admin",
-        password: "admin",
+        password: "",
         rememberMe: true,
       },
       rules: {

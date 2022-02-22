@@ -64,25 +64,34 @@ export default {
     
   },
   methods: {
+    // 清除图表缓存
+    Clear_the_cache(){
+      // echarts清缓存--clear()只是删除了画布，数据依旧存在
+      this.myChart.clear();
+    },
+
     async select1(selVal){
-      console.log("选择框1");
-      console.log(selVal);
+      // console.log("选择框1");
+      // console.log(selVal);
+      this.Clear_the_cache();
       await this.getList(selVal,this.value2,this.value4,this.value3)
     },
     async select2(selVal){
-      console.log("选择框2");
-      console.log(selVal);
+      // console.log("选择框2");
+      // console.log(selVal);
+      this.Clear_the_cache();
       await this.getList(this.value1,selVal,this.value4,this.value3)
     },
     async select3(selVal){
-      console.log("选择框3");
-      console.log(selVal);
+      // console.log("选择框3");
+      // console.log(selVal);
+      this.Clear_the_cache();
       await this.getList(this.value1,this.value2,this.value4,selVal)
     },
     async select4(selVal){
-      console.log("选择框4");
-      console.log(selVal);
-      
+      // console.log("选择框4");
+      // console.log(selVal);
+      this.Clear_the_cache();
       await this.getList(this.value1,this.value2,selVal,this.value3)
     },
 
@@ -139,9 +148,10 @@ export default {
       this.options1=aaa[0][Object.keys(aaa[0])[0]];
       this.value1 = aaa[0][Object.keys(aaa[0])[0]][0]['label'];
       this.options2=aaa[1][Object.keys(aaa[1])[0]];
-      this.value2 = aaa[1][Object.keys(aaa[1])[0]][0]['label'];
+      this.value2 = '次周';
       this.options3=aaa[2][Object.keys(aaa[2])[0]];
       this.value3 = aaa[2][Object.keys(aaa[2])[0]][0]['label'];
+      
       this.options4=aaa[3][Object.keys(aaa[3])[0]];
       this.value4 = aaa[3][Object.keys(aaa[3])[0]][0]['label'];
 
@@ -165,6 +175,9 @@ export default {
   },
   // 获取数据，并渲染 echarts 图表：首次渲染使用
   echartsDisplay(ts,spotprice,contractprice,basis,basisrate) {
+    const colors = ['#5470C6', '#91CC75', '#EE6666'];
+
+
     // console.log(this.token);
     // 1）初始化--动态绑定DOM的id
     this.myChart = echarts.init(document.getElementById("myChart"));
@@ -221,15 +234,25 @@ export default {
       yAxis: [
         {
           name: '指数/价格',
-          type: 'value'
+          type: 'value',
+          alignTicks: true,
+          axisLine: {
+            show: true,
+            
+          }
         },
         {
-          name: 'Rainfall(mm)',
-          nameLocation: 'start',
-          alignTicks: true,
+          name: '基差',
           type: 'value',
-          inverse: true
-        }
+          position: 'right',
+          alignTicks: true,
+          axisLine: {
+            show: true,
+            lineStyle: {
+              // color: colors[1]
+            }
+          },
+        },
       ],
       series: [
         {
